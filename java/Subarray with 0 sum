@@ -1,0 +1,21 @@
+class Subarraywith0sum {
+    public int subarraySum(int[] nums, int k) {        
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0, count = 0;
+        for(int num : nums){
+            sum += num;  // Calculate the running sum
+            // Case 1:
+            // If runningSum is equal to k, then add 1 to count
+            if(sum == k) 
+                count++;
+            // Case 2:
+            // If map contains a prefix sum of sum-k, then add the freq of prefixSum
+            if(map.containsKey(sum - k))
+                count += map.get(sum - k);
+            
+            // Add the curr sum to the map with the corresponding frequency
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }    
+}
