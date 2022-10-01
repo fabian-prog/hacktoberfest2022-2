@@ -1,0 +1,38 @@
+class Solution {
+    
+    void heapify(int[] nums, int sz, int f) {
+        int c = f;
+        
+        int l = c * 2;
+        int r = c * 2 + 1;
+        
+        if (l <= sz && nums[l - 1] > nums[c - 1]) 
+            c = l;
+            
+        if (r <= sz && nums[r - 1] > nums[c - 1]) 
+            c = r;
+        
+        if (c == f)
+            return;
+        
+        int tmp = nums[f - 1];
+        nums[f - 1] = nums[c - 1];
+        nums[c - 1] = tmp;
+        
+        heapify(nums, sz, c);
+    }
+    
+    public int[] sortArray(int[] nums) {
+        for(int j = nums.length / 2; j >= 1; j--)
+            heapify(nums, nums.length, j);
+        
+        for(int j = nums.length - 1; j >= 0; j--) {
+            int tmp = nums[j];
+            nums[j] = nums[0];
+            nums[0] = tmp;
+            heapify(nums, j, 1);
+        }
+        return nums;
+                
+    }
+}
